@@ -1,7 +1,8 @@
 public class PalindromeWords {
-    String str = "malayalam madam teaches dad to dance";
+    String str = "malayalam madam teaches dad to dance jalayalaj balayalab";
     String words[] = str.split(" ");
     String palindromes[] = new String[words.length];
+    String sameLength[] = new String[words.length];
     int index = 0;
 
     public void checkPelindrome(String word) {
@@ -37,7 +38,37 @@ public class PalindromeWords {
                 longest = palindromes[i];
             }
         }
-        System.out.println("Longest Pelindrome word is : " + longest);
+
+        longestPalindromes(longest);
+    }
+
+    public void longestPalindromes(String longest) {
+        int ind = 0;
+        for (int i = 0; i < index; i++) {
+            String word = palindromes[i];
+            if (word.length() == longest.length()) {
+                sameLength[ind] = word;
+                ind++;
+            }
+        }
+        for (int i = 0; i < ind; i++) {
+            for (int j = 0; j < ind; j++) {
+                String word1 = sameLength[i];
+                String word2 = sameLength[j];
+                for (int k = 0; k < word1.length(); k++) {
+                    if (word1.charAt(k) < word2.charAt(k)) {
+                        String temp = word1;
+                        sameLength[i] = word2;
+                        sameLength[j] = temp;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Longest Palindrome words are ");
+        for (int i = 0; i < ind; i++) {
+            System.out.println(sameLength[i]);
+        }
     }
 
     public static void main(String[] args) {
